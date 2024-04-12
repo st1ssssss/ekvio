@@ -1,0 +1,87 @@
+@import './base.css';
+
+@font-face{ 
+  font-family: 'Inter';
+  font-weight: 400,;
+  src: local("Inter");
+  src: url("src/css/fonts/Inter/Inter-Regular.woff")
+}
+
+@font-face{ 
+  font-family: 'Inter';
+  font-weight: 500;
+  src: local("Inter");
+  src: url("src/css/fonts/Inter/Inter-Medium.woff");
+}
+h1{  
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px;
+  margin: 0;
+  padding: 0}
+
+h2
+{  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 40px;
+  margin: 0;
+  padding: 0}
+
+h3
+{  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  margin: 0;
+  padding: 0;
+}
+h4
+{  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  margin: 0;
+  padding: 0;
+}
+p
+{  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  margin: 0;
+  padding: 0;
+}
+span{
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+}
+
+a{
+  font-family: Inter;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
