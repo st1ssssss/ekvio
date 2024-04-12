@@ -15,6 +15,7 @@ const props = defineProps<IEBtn>()
     font-family: Inter;
     padding: 12px;
     border-radius: 12px;
+    color: var(--c-gray-700);
     border: 1px solid var(--c-gray-300);
     background: var(--c-white);
     cursor: pointer;
