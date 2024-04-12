@@ -6,8 +6,8 @@
 </template>
 <style>
 .e-loader {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
