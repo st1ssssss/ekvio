@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import ECard from '@/components/ui/card/ECard.vue'
 import EButton from '@/components/ui/button/EButton.vue';
-import { computed, onMounted, ref, watch, type Ref } from 'vue';
+import {onMounted, ref, watch, type Ref } from 'vue';
+import type { IJSONFile } from '../file-loader/config';
 
 const props = defineProps<{
     label: string,
-    fileToBeRoot?: File
+    fileToBeRoot?: File|IJSONFile
 }>()
 
 const emits = defineEmits<{
@@ -15,7 +16,6 @@ const emits = defineEmits<{
 const fileName:Ref<string|undefined> = ref('Файл не выбран')
 const loading = ref(false)
 const errorMsg = ref('HintText')
-const btnLabel = ref('Выбрать файл')
 const rootFile = ref()
 
 const deleteFile = () => {
@@ -28,17 +28,15 @@ watch(fileName, (val)=>{
 
 onMounted(()=>{
     if(props.fileToBeRoot){
-        console.log(props.fileToBeRoot)
         rootFile.value = props.fileToBeRoot
         fileName.value = props.fileToBeRoot.name
         errorMsg.value = "Загружен"
-        btnLabel.value = 'Удалить'
 
     }
 })
 </script>
 <template>
-    <e-card class="card-item">
+    <e-card class="card-item" >
         <h4>{{ label }}</h4>
         <div class="item-content">
             <e-button class="item-e-btn" :label="'Удалить'" @click="deleteFile"/>

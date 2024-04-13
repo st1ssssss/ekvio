@@ -2,8 +2,8 @@
 import ECard from '@/components/ui/card/ECard.vue'
 import EButton from '@/components/ui/button/EButton.vue';
 import { computed, ref, watch, type Ref } from 'vue';
-import type { HTMLInputEvent } from './config';
 import ELoader from '@/components/ui/loader/ELoader.vue';
+import type { HTMLInputEvent, btnFLLabels } from './config';
 
 const randomPhrase = ['Почти закончили...', 'Еще чуть-чуть...', 'Совсем немного...']
 
@@ -15,9 +15,10 @@ const emits = defineEmits<{
 const fileName:Ref<string|undefined> = ref('Файл не выбран')
 const loading = ref(false)
 
-const btnLabel = ref('Выбрать файл')
+const btnLabel:Ref<btnFLLabels> = ref('Выбрать файл')
 const rootFile = ref()
 const errorMsg = ref('HintText')
+let timeout:number
 
 const errorMsgStyle = computed(()=>{
     let res
@@ -40,28 +41,38 @@ const chooseFile = () => {
 }
 
 const uploadFile = (event:HTMLInputEvent) => {
-    const file = event.target.files?.item(0)!
+    const file:File = event.target.files?.item(0)!
     if(file !== null){
         errorMsg.value = randomPhrase[Math.floor(Math.random()*3)]
         loading.value = true
         btnLabel.value = 'Отменить'
-        setTimeout(()=>{
+        timeout = setTimeout(()=>{
         loading.value = false
         fileName.value = event.target.files?.item(0)?.name
         errorMsg.value = 'Успешно загружено!'
-        if(rootFile.value){
-            btnLabel.value = 'Удалить'
-        }else{
-            btnLabel.value = 'Выбрать файл'
-        }
+        btnLabel.value = 'Выбрать файл'
         emits('itemUploaded', file) 
     }, 3000)
     }else{
         errorMsg.value = 'Вы не выбрали файл'
     }
-    
 }
 
+const btnFuncReducer = () => {
+    switch (btnLabel.value) {
+        case 'Выбрать файл':
+            chooseFile()
+            break;
+        case 'Отменить':
+            clearTimeout(timeout)
+            errorMsg.value = 'Загрузка прервана'
+            loading.value = false
+            btnLabel.value = 'Выбрать файл'
+            break;    
+        default:
+            break;
+    }
+}
 
 watch(fileName, (val)=>{
     if(val === undefined){
@@ -75,10 +86,10 @@ watch(fileName, (val)=>{
 
 </script>
 <template>
-    <e-card class="card-item">
+    <e-card class="card-item" :padding-type="'custom'" :padding-num="'22px 0px 0px 0px'">
         <h4>File loader</h4>
         <div class="item-content">
-            <e-button class="item-e-btn" :label="btnLabel" @click="chooseFile"/>
+            <e-button class="item-e-btn" :label="btnLabel" @click="btnFuncReducer"/>
             <span v-if="!loading">{{fileName}}</span>
             <e-loader v-if="loading"/>
             <input type="file" name="" id="uploader" @change="uploadFile">
@@ -86,6 +97,7 @@ watch(fileName, (val)=>{
         <p :class=errorMsgStyle>
             {{ errorMsg }}
         </p>
+
     </e-card>
 </template>
 <style scoped>
