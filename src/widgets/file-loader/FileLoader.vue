@@ -4,9 +4,7 @@ import EButton from '@/components/ui/button/EButton.vue';
 import { computed, ref, watch, type Ref } from 'vue';
 import ELoader from '@/components/ui/loader/ELoader.vue';
 import type { HTMLInputEvent, btnFLLabels } from './config';
-
-const randomPhrase = ['Почти закончили...', 'Еще чуть-чуть...', 'Совсем немного...']
-
+import {randomPhrase} from './config'
 
 const emits = defineEmits<{
     (e:'itemUploaded', value: File): void,
@@ -16,9 +14,8 @@ const fileName:Ref<string|undefined> = ref('Файл не выбран')
 const loading = ref(false)
 
 const btnLabel:Ref<btnFLLabels> = ref('Выбрать файл')
-const rootFile = ref()
 const errorMsg = ref('HintText')
-let timeout:number
+let timeout: number
 
 const errorMsgStyle = computed(()=>{
     let res
